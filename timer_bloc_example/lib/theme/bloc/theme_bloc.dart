@@ -15,20 +15,29 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     ThemeEventDarkMode event,
     Emitter<ThemeState> emit,
   ) {
-    emit(const ThemeState(isDarkMode: true));
+    emit(ThemeState(
+      isDarkMode: true,
+      selectedColor: event.selectedColor,
+    ));
   }
 
   FutureOr<void> _onThemeLightMode(
     ThemeEventLightMode event,
     Emitter<ThemeState> emit,
   ) {
-    emit(const ThemeState(isDarkMode: false));
+    emit(ThemeState(
+      isDarkMode: false,
+      selectedColor: event.selectedColor,
+    ));
   }
 
   FutureOr<void> _onThemeSelectedMode(
     ThemeEventSelectedMode event,
     Emitter<ThemeState> emit,
   ) {
-    emit(ThemeState(isDarkMode: state.isDarkMode, selectedColor: event.selectedColor));
+    emit(ThemeState(
+      isDarkMode: state.isDarkMode,
+      selectedColor: event.selectedColor,
+    ));
   }
 }

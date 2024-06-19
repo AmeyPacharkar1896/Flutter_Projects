@@ -26,8 +26,12 @@ class ToggleSwitchWidget extends StatelessWidget {
             value: ThemeState.isDarkMode,
             onChanged: (value) {
               value
-                  ? context.read<ThemeBloc>().add(ThemeEventDarkMode())
-                  : context.read<ThemeBloc>().add(ThemeEventLightMode());
+                  ? context.read<ThemeBloc>().add(
+                        ThemeEventDarkMode(ThemeState.selectedColor),
+                      )
+                  : context.read<ThemeBloc>().add(
+                        ThemeEventLightMode(ThemeState.selectedColor),
+                      );
             },
           );
         }),
