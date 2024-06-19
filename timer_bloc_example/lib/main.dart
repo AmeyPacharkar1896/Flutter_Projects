@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:timer_bloc_example/timer/view/screen/timer_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timer_bloc_example/application.dart';
+import 'package:timer_bloc_example/theme/bloc/theme_bloc.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
-      home: TimerScreen(),
+    BlocProvider(
+      create: (context) => ThemeBloc(),
+      child: const Application(),
     ),
   );
 }
