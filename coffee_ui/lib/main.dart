@@ -1,5 +1,3 @@
-import 'package:coffee_ui/screens/home_screen.dart';
-import 'package:coffee_ui/screens/user_first_page.dart';
 import 'package:coffee_ui/screens/buying_page.dart';
 import 'package:flutter/material.dart';
 

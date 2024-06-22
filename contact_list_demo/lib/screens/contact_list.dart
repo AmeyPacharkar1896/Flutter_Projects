@@ -1,6 +1,5 @@
 import 'package:contact_list_demo/screens/add_or_edit_contact.dart';
 import 'package:contact_list_demo/screens/contact.dart';
-import 'package:contact_list_demo/widgets/new_contact_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ContactList extends StatefulWidget {
