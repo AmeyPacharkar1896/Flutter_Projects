@@ -38,6 +38,7 @@ class UserApiService {
       }
     } catch (e) {
       log('Something went wrong');
+      log(e.toString());
       return null;
     }
   }

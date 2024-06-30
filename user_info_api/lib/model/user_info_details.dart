@@ -19,12 +19,12 @@ class UserInfoDetails {
   }
 
   factory UserInfoDetails.fromList(List<dynamic> list) {
+    List<UserInfoDetails> listOfUsers = [];
     for (Map<String, dynamic> user in list) {
       log(user.toString());
+      listOfUsers.add(UserInfoDetails.fromMap(user));
     }
-    return UserInfoDetails.fromMap(
-      
-    );
+    return listOfUsers;
   }
 
   factory UserInfoDetails.fromMap(Map<String, dynamic> map) {
