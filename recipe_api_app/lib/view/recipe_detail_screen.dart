@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_data_api/model/recipe_model_data.dart';
 import 'package:user_data_api/view/recipe_instruction_or_ingredients_screen.dart';
+import 'package:user_data_api/widget/app_bar_text_widget.dart';
 import 'package:user_data_api/widget/dish_details_text_widget.dart';
 import 'package:user_data_api/widget/text_widget.dart';
 
@@ -13,11 +14,8 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidget(
-          text: 'Recipe Details',
-          fontSizeText: 25,
-          fontWeight: FontWeight.bold,
-        ),
+        title: const AppBarTextWidget(text: 'Recipe Details'),
+        backgroundColor: const Color(0xFFFB8A22),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -43,6 +41,10 @@ class RecipeDetailScreen extends StatelessWidget {
                 ),
                 TextWidget(
                   text: recipe.cuisine,
+                  fontSizeText: 15,
+                ),
+                TextWidget(
+                  text: recipe.rating.toString(),
                   fontSizeText: 15,
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_data_api/model/recipe_model_data.dart';
+import 'package:user_data_api/widget/app_bar_text_widget.dart';
 import 'package:user_data_api/widget/text_widget.dart';
 
 class RecipeInstructionOrIngrediantsList extends StatefulWidget {
@@ -37,11 +38,10 @@ class _RecipeInstructionListState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextWidget(
+        title: AppBarTextWidget(
           text: isInstruction ? 'Instructions' : 'Ingrediants',
-          fontSizeText: 25,
-          fontWeight: FontWeight.bold,
         ),
+        backgroundColor: const Color(0xFFFB8A22),
       ),
       body: ListView.builder(
         shrinkWrap: true,

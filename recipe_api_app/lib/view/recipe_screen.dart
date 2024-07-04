@@ -4,6 +4,7 @@ import 'package:user_data_api/bloc/recipe_bloc.dart';
 import 'package:user_data_api/bloc/recipe_event.dart';
 import 'package:user_data_api/bloc/recipe_state.dart';
 import 'package:user_data_api/view/recipe_detail_screen.dart';
+import 'package:user_data_api/widget/app_bar_text_widget.dart';
 import 'package:user_data_api/widget/text_widget.dart';
 
 class RecipeScreen extends StatefulWidget {
@@ -27,10 +28,8 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const TextWidget(
-          text: 'Recipe App',
-          fontWeight: FontWeight.w300,
-        ),
+        title: const AppBarTextWidget(text: 'Recipe App',),
+        backgroundColor: const Color(0xFFFB8A22),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,14 +75,15 @@ class _RecipeScreenState extends State<RecipeScreen> {
                               child: TextButton(
                                 onPressed: () {
                                   isFiltered
-                                      ? context
-                                          .read<RecipeBloc>()
-                                          .add(RecipeEventFilterByCuisine(
+                                      ? context.read<RecipeBloc>().add(
+                                          RecipeEventFilterByCuisine(
                                               cuisine[index]))
                                       : context
                                           .read<RecipeBloc>()
                                           .add(RecipeEventGetRecipeDetails());
-                                  isFiltered ? isFiltered = false : isFiltered = true;
+                                  isFiltered
+                                      ? isFiltered = false
+                                      : isFiltered = true;
                                 },
                                 child: Column(
                                   children: [

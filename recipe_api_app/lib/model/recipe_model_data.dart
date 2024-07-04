@@ -13,7 +13,7 @@ class RecipeModelData {
     required this.tags,
     required this.userId,
     required this.image,
-    // required this.rating,
+    required this.rating,
     required this.reviewCount,
     required this.mealType,
   });
@@ -39,7 +39,7 @@ class RecipeModelData {
       tags: (map['tags'] as List).map((e) => e.toString()).toList(),
       userId: map['userId'] as int,
       image: map['image'] as String,
-      // rating: map['rating'] as double,
+      rating: map['rating'].toDouble(),
       reviewCount: map['reviewCount'] as int,
       mealType: (map['mealType'] as List).map((e) => e.toString()).toList(),
     );
@@ -58,7 +58,7 @@ class RecipeModelData {
   final List<String> tags;
   final int userId;
   final String image;
-  // final double rating;
+  final double rating;
   final int reviewCount;
   final List<String> mealType;
 }
