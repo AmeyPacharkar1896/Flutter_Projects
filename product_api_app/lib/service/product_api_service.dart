@@ -9,7 +9,7 @@ class ProductApiService {
     final uri = Uri.parse(uriLink);
     final response = await client.get(uri);
 
-    if(response == 200) {
+    if(response.statusCode == 200) {
       return ProductModel.fromJson(response.body);
     }
       return null;

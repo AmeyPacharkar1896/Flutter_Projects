@@ -7,10 +7,10 @@ class ProductModelDimension {
 
   factory ProductModelDimension.fromMap(Map<String, dynamic> map) {
     return ProductModelDimension(
-      width: map['width']as double, 
-      height: map['height'] as double, 
-      depth: map['depth'] as double,
-      );
+      width: double.parse(map['width'].toString()),
+      height: double.parse(map['height'].toString()),
+      depth: double.parse(map['depth'].toString()),
+    );
   }
 
   final double width;

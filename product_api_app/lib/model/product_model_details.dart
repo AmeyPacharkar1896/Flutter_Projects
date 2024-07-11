@@ -31,15 +31,13 @@ class ProductModelDetails {
       description: map['description'] as String,
       category: map['category'] as String,
       price: map['price'] as double,
-      discountPercentage: map['discountPercentage'] as double,
+      discountPercentage: double.parse(map['discountPercentage'].toString()),
       rating: map['rating'] as double,
       stock: map['stock'] as int,
       tags: List<String>.from(map['tags']),
-      brand: map['brand'] as String,
+      brand: map['brand'] as String?,
       weight: map['weight'] as int,
-      dimensions: (map['dimensions'] as List)
-          .map((dimensionMap) => ProductModelDimension.fromMap(dimensionMap as Map<String, dynamic>))
-          .toList(),
+      dimensions: ProductModelDimension.fromMap(map['dimensions'] as Map<String, dynamic>),
       warrantyInformation: map['warrantyInformation'] as String,
       shippingInformation: map['shippingInformation'] as String,
       availabilityStatus: map['availabilityStatus'] as String,
@@ -49,7 +47,7 @@ class ProductModelDetails {
       returnPolicy: map['returnPolicy'] as String,
       minimumOrderQuantity: map['minimumOrderQuantity'] as int,
       meta: Map<String, String>.from(map['meta'] as Map),
-      images: map['images'] as String,
+      images: List<String>.from(map['images']), 
       thumbnail: map['thumbnail'] as String,
     );
   }
@@ -62,9 +60,9 @@ class ProductModelDetails {
   final double rating;
   final int stock;
   final List<String> tags;
-  final String brand;
+  final String? brand;
   final int weight;
-  final List<ProductModelDimension> dimensions;
+  final ProductModelDimension dimensions;
   final String warrantyInformation;
   final String shippingInformation;
   final String availabilityStatus;
@@ -72,6 +70,6 @@ class ProductModelDetails {
   final String returnPolicy;
   final int minimumOrderQuantity;
   final Map<String, String> meta;
-  final String images;
+   final List<String> images;
   final String thumbnail;
 }
