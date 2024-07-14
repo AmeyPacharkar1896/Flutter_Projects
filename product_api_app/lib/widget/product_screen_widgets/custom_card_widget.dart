@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_api_app/model/product_model_details.dart';
-import 'package:product_api_app/view/product_detail_screen.dart';
-import 'package:product_api_app/widget/custom_text_widget.dart';
+import 'package:product_api_app/view/product_detail_screen/product_detail_page.dart';
+import 'package:product_api_app/widget/product_screen_widgets/custom_text_widget.dart';
 
 class CustomCardWidget extends StatelessWidget {
   const CustomCardWidget({
@@ -61,7 +61,7 @@ class CustomCardWidget extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: ((context) => ProductDetailScreen(
+                                  builder: ((context) => ProductDetailPage(
                                         product: product,
                                       )),
                                 ),

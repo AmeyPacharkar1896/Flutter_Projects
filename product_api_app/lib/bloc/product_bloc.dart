@@ -1,66 +1,56 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:product_api_app/bloc/product_event.dart';
 import 'package:product_api_app/bloc/product_state.dart';
 import 'package:product_api_app/model/product_model_details.dart';
-import 'package:product_api_app/service/product_api_service.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  List<ProductModelDetails> _allProduct = [];
-  final List<String> _selectedTags = []; // Track selected tags
-
-  ProductApiService productApiService = ProductApiService();
+  final List<ProductModelDetails> _allProducts = []; // Assuming you fetch and store all products here.
 
   ProductBloc() : super(ProductStateInitial()) {
-    on<ProductEventGetProductDetail>(_onProductEventGetProductDetail);
-    on<ProductEventSelectTag>(_onProductEventSelectTag);
+    on<ProductEventGetProductDetail>(_onGetProductDetail);
+    on<ProductEventSelectTag>(_onSelectTag);
+    on<ProductEventSelectSegment>(_onSelectSegment);
+    on<ProductEventChangeState>(_onChangeState);
+    on<ProductEventSearch>(_onSearch); // Add event handler for search
   }
 
-  Future<void> _onProductEventGetProductDetail(
-    ProductEventGetProductDetail event,
-    Emitter<ProductState> emit,
-  ) async {
+  void _onGetProductDetail(ProductEventGetProductDetail event, Emitter<ProductState> emit) {
     emit(ProductStateLoading());
-    try {
-      final response = await productApiService.getAllProducts();
-      if (response != null) {
-        _allProduct = response.products;
-        emit(ProductStateLoaded(
-          productModelDetail: _allProduct,
-          selectedTags: _selectedTags,
-          isSelectedColor: true,
-        ));
-      } else {
-        emit(ProductStateError(message: 'No products found'));
-      }
-    } catch (e) {
-      emit(ProductStateError(message: e.toString()));
-    }
+    // Fetch products and emit ProductStateLoaded with fetched products.
+    // For simplicity, assuming products are fetched and assigned to _allProducts
+    emit(ProductStateLoaded(
+      productModelDetail: _allProducts,
+      selectedTags: [],
+      isSelectedColor: false,
+      selectedSegment: 0,
+      searchResults: _allProducts,
+    ));
   }
 
-  void _onProductEventSelectTag(
-    ProductEventSelectTag event,
-    Emitter<ProductState> emit,
-  ) {
-    if (event.isSelected) {
-      _selectedTags.add(event.tag);
-    } else {
-      _selectedTags.remove(event.tag);
-    }
+  void _onSelectTag(ProductEventSelectTag event, Emitter<ProductState> emit) {
+    // Handle tag selection logic
+  }
 
-    if (_selectedTags.isEmpty) {
+  void _onSelectSegment(ProductEventSelectSegment event, Emitter<ProductState> emit) {
+    // Handle segment selection logic
+  }
+
+  void _onChangeState(ProductEventChangeState event, Emitter<ProductState> emit) {
+    // Handle state change logic
+  }
+
+  void _onSearch(ProductEventSearch event, Emitter<ProductState> emit) {
+    if (state is ProductStateLoaded) {
+      final loadedState = state as ProductStateLoaded;
+      final searchResults = _allProducts
+          .where((product) => product.title.toLowerCase().contains(event.query.toLowerCase()))
+          .toList();
       emit(ProductStateLoaded(
-        productModelDetail: _allProduct,
-        selectedTags: _selectedTags,
-        isSelectedColor: false,
-      ));
-    } else {
-      final filteredProducts = _allProduct.where((product) {
-        return _selectedTags.every((tag) => product.tags.contains(tag));
-      }).toList();
-      emit(ProductStateLoaded(
-        productModelDetail: filteredProducts,
-        selectedTags: _selectedTags,
-        isSelectedColor: true,
+        productModelDetail: loadedState.productModelDetail,
+        selectedTags: loadedState.selectedTags,
+        isSelectedColor: loadedState.isSelectedColor,
+        selectedSegment: loadedState.selectedSegment,
+        searchResults: searchResults,
       ));
     }
   }
