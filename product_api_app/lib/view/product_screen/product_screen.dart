@@ -53,7 +53,7 @@ class ProductScreen extends StatelessWidget {
                             controller.openView();
                           },
                           onChanged: (value) {
-                            // context.read<ProductBloc>().add(ProductEventSearch(controller.text));
+                            context.read<ProductBloc>().add(ProductEventSearch(controller.text));
                             controller.openView();
                           },
                           leading: const Icon(Icons.search),
@@ -70,7 +70,7 @@ class ProductScreen extends StatelessWidget {
                             title: Text(item),
                             onTap: () {
                               controller.text = item;
-                              // context.read<ProductBloc>().add(ProductEventSearch(item));
+                              context.read<ProductBloc>().add(ProductEventSearch(item));
                             },
                           );
                         });
