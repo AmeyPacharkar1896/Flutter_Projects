@@ -1,5 +1,5 @@
 class TodoModel {
-  TodoModel({
+  const TodoModel({
     this.id,
     required this.title,
     this.description,
@@ -43,16 +43,18 @@ class TodoModel {
     String? title,
     String? description,
     DateTime? updatedAt,
+    bool? isCompleted,
+    DateTime? completedAt,
   }) {
     return TodoModel(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
-      isCompleted: isCompleted,
+      isCompleted: isCompleted ?? this.isCompleted,
       createdAt: createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       deletedAt: deletedAt,
-      completedAt: completedAt,
+      completedAt: completedAt ?? this.completedAt,
     );
   }
 

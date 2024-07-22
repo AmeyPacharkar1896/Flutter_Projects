@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_storage_sqflite_demo/all_todos/bloc/all_todos_bloc.dart';
+import 'package:local_storage_sqflite_demo/all_todos/bloc/all_todos_event.dart';
+import 'package:local_storage_sqflite_demo/shared/show_snack_bar.dart';
 import '../../model/todo_model.dart';
 import '../bloc/create_todo_bloc.dart';
 
@@ -35,6 +37,11 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
         if (state.status == CreateTodoStatus.completed) {
           context.read<AllTodoBloc>().add(const AllTodoEventFetch());
           Navigator.of(context).pop();
+          if (state is CreateTodoStateAdd) {
+            showSnackbar('Todo created!');
+          } else {
+            showSnackbar('Todo updated!');
+          }
         }
       },
       builder: (context, state) {
@@ -62,13 +69,14 @@ class _CreateTodoScreenState extends State<CreateTodoScreen> {
                                 ),
                               ),
                             );
+                      } else {
+                        context.read<CreateTodoBloc>().add(
+                              CreateTodoEventSave(
+                                title: title,
+                                description: description,
+                              ),
+                            );
                       }
-                      context.read<CreateTodoBloc>().add(
-                            CreateTodoEventSave(
-                              title: title,
-                              description: description,
-                            ),
-                          );
                     }
                   },
                   icon: const Icon(Icons.save),

@@ -1,13 +1,12 @@
 import 'dart:developer';
-
 import 'package:sqflite/sqflite.dart';
 
-class LocalDataBase {
-  LocalDataBase._internal();
-  factory LocalDataBase() {
+class LocalDatabase {
+  LocalDatabase._internal();
+  factory LocalDatabase() {
     return _singleton;
   }
-  static final LocalDataBase _singleton = LocalDataBase._internal();
+  static final LocalDatabase _singleton = LocalDatabase._internal();
 
   static const tableName = 'Todos';
 
@@ -15,16 +14,16 @@ class LocalDataBase {
 
   Future<void> initialize() async {
     final localStoragePath = await getDatabasesPath();
-    final dataBasePath = '$localStoragePath/todo_database.db';
+    final databasePath = '$localStoragePath/todo_database.db';
 
     database = await openDatabase(
-      dataBasePath,
+      databasePath,
       version: 1,
       onCreate: (db, version) async {
         await db.execute(
           'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT, isCompleted INTEGER NOT NULL, deletedAt INTEGER, createdAt INTEGER NOT NULL, updatedAt INTEGER, completedAt INTEGER)',
         );
-        log('Database created');
+        log('database created!');
       },
     );
   }

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_api_app/bloc/product_event.dart';
 import 'package:product_api_app/bloc/product_state.dart';
 import 'package:product_api_app/model/product_model_details.dart';
@@ -17,7 +17,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductEventSearch>(_onSearch);
   }
 
-  Future<void> _onGetProductDetail(ProductEventGetProductDetail event, Emitter<ProductState> emit) async {
+  Future<void> _onGetProductDetail(
+      ProductEventGetProductDetail event, Emitter<ProductState> emit) async {
     emit(ProductStateLoading());
     try {
       final response = await productApiService.getAllProducts();
@@ -67,7 +68,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
-  void _onSelectSegment(ProductEventSelectSegment event, Emitter<ProductState> emit) {
+  void _onSelectSegment(
+      ProductEventSelectSegment event, Emitter<ProductState> emit) {
     if (state is ProductStateLoaded) {
       emit(
         ProductStateLoaded(
@@ -81,7 +83,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
-  void _onChangeState(ProductEventChangeState event, Emitter<ProductState> emit) {
+  void _onChangeState(
+      ProductEventChangeState event, Emitter<ProductState> emit) {
     if (state is ProductStateInitial) {
       emit(
         ProductStateLoaded(
@@ -99,7 +102,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     if (state is ProductStateLoaded) {
       final loadedState = state as ProductStateLoaded;
       final searchResults = _allProducts
-          .where((product) => product.title.toLowerCase().contains(event.query.toLowerCase()))
+          .where((product) =>
+              product.title.toLowerCase().contains(event.query.toLowerCase()))
           .toList();
       emit(ProductStateLoaded(
         productModelDetail: loadedState.productModelDetail,
