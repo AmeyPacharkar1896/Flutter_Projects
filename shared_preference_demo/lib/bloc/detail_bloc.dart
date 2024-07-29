@@ -28,7 +28,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
         } else {
           pref.setDetails(event.userDetail, event.index);
         }
-        userDetail = pref.getDetail();
+        userDetail = pref.getDetail(null);
         log(userDetail.toString());
         emit(DetailStateLoaded(userDetail: userDetail));
       }
@@ -48,7 +48,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     try {
       if (state is DetailStateLoading) {
         pref.deleteDetail(event.index);
-        userDetail = pref.getDetail();
+        userDetail = pref.getDetail(null);
         log(userDetail.toString());
         emit(DetailStateLoaded(userDetail: userDetail));
       }
@@ -66,7 +66,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     await pref.init();
     try {
       if (state is DetailStateLoading) {
-        userDetail = pref.getDetail();
+        userDetail = pref.getDetail(event.query);
         log(userDetail.toString());
         emit(DetailStateLoaded(userDetail: userDetail));
       }

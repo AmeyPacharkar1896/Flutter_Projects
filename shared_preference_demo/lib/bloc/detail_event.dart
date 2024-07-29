@@ -1,6 +1,10 @@
 abstract class DetailEvent {}
 
-class DetailEventShowInfo extends DetailEvent {}
+class DetailEventShowInfo extends DetailEvent {
+  DetailEventShowInfo({this.query});
+
+  final String? query;
+}
 
 class DetailEventSaveInfo extends DetailEvent {
   DetailEventSaveInfo({

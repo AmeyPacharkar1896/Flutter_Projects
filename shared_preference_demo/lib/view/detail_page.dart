@@ -10,7 +10,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DetailBloc(),
-      child: const DetailScreen(),
+      child: DetailScreen(),
     );
   }
 }

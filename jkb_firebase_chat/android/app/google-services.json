@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026434676134",
+    "project_id": "jkb-firebase-chat",
+    "storage_bucket": "jkb-firebase-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026434676134:android:46a864cf2c55e84fb24b67",
+        "android_client_info": {
+          "package_name": "com.amey.jkb_firebase_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkv4xXKi0uT1DInlboPrMGwtiW86Bdh4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

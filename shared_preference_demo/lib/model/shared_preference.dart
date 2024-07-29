@@ -23,9 +23,14 @@ class SharedPreference {
     }
   }
 
-  List<String> getDetail() {
+  List<String> getDetail(String? query) {
     List<String>? userDetail = _preferences.getStringList('UserDetail');
     if (userDetail != null) {
+      if (query != null) {
+        List<String> searchedDetails =
+            userDetail.where((element) => element.contains(query)).toList();
+        return searchedDetails;
+      }
       return userDetail;
     }
     return [];

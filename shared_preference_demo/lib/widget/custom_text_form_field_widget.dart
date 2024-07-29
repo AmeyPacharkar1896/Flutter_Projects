@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preference_demo/widget/custom_text_widget.dart';
 
 class CustomTextFormFieldWidget extends StatelessWidget {
-  const CustomTextFormFieldWidget({
-    super.key,
-    required this.controller,
-    this.icon,
-    this.labelString,
-    this.hintString,
-  });
-
   final TextEditingController controller;
-  final IconData? icon;
-  final String? labelString;
-  final String? hintString;
+  final IconData icon;
+  final String labelString;
+  final String hintString;
+
+  const CustomTextFormFieldWidget({
+    required this.controller,
+    required this.icon,
+    required this.labelString,
+    required this.hintString,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
-          icon: Icon(icon),
-          labelText: labelString,
+          icon: Icon(
+            icon,
+            color: Colors.blue,
+          ),
+          label: CustomTextWidget(string: labelString),
           hintText: hintString,
-          hoverColor: Colors.grey,
         ),
       ),
     );
