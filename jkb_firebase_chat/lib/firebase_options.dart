@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'jkb-firebase-chat.appspot.com',
     measurementId: 'G-5Q1T3DEW7S',
   );
+
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_storage_sqflite_demo/all_todos/bloc/all_todos_bloc.dart';
 import 'package:local_storage_sqflite_demo/all_todos/bloc/all_todos_event.dart';
-import 'package:local_storage_sqflite_demo/all_todos/view/widget/todo_list_builder.dart';
+import 'package:local_storage_sqflite_demo/all_todos/widget/todo_list_builder.dart';
 
 class TodoSearchDelegate extends SearchDelegate {
   @override

@@ -58,7 +58,7 @@ class TodoLocalDatabase {
     return 'SELECT * FROM $tableName WHERE isCompleted = ?';
   }
 
-  Future<TodoModel?> get(int id) async {
+  Future<TodoModel?> get(int id) async { //132
     final response = await _localDatabase.database.query(
       tableName,
       columns: [
@@ -72,7 +72,7 @@ class TodoLocalDatabase {
         'completedAt',
       ],
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id], //132
     );
     return response.firstOrNull != null
         ? TodoModel.fromMap(response.first)
