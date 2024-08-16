@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jkb_firebase_chat/modules/auth/bloc/auth_bloc.dart';
+import 'package:jkb_firebase_chat/modules/chat/view/chat_page.dart';
 import 'package:jkb_firebase_chat/modules/search_user/bloc/search_user_bloc.dart';
 
 class SearchListViewBuilder extends StatelessWidget {
@@ -20,6 +22,17 @@ class SearchListViewBuilder extends StatelessWidget {
                   itemBuilder: ((context, index) {
                     final user = state.users[index];
                     return ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ChatPage(
+                              sender:
+                                  context.read<AuthBloc>().state.currentUser!,
+                              receiver: user,
+                            ),
+                          ),
+                        );
+                      },
                       leading: CircleAvatar(
                         child: Text(
                           _getFirstCharacter(user.name),

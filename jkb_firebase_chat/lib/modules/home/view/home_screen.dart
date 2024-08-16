@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jkb_firebase_chat/modules/search_user/view/search_page.dart';
 import 'package:jkb_firebase_chat/modules/search_user/view/widget/search_list_view_builder.dart';
-import 'package:jkb_firebase_chat/modules/setting/view/setting_screen.dart';
+import 'package:jkb_firebase_chat/modules/setting/view/setting_page.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                       child: const Text('Setting'),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => const SettingsScreen(),
+                          builder: (_) => const SettingPage(),
                         ));
                       },
                     ),

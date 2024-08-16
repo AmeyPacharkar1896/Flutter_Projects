@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jkb_firebase_chat/modules/auth/bloc/auth_bloc.dart';
-import 'package:jkb_firebase_chat/modules/auth/widget/text_field_form_widgets.dart';
+import 'package:jkb_firebase_chat/modules/auth/view/widget/text_field_form_widgets.dart';
 import 'package:jkb_firebase_chat/shared/full_screen_loader.dart';
 
 class AuthScreen extends StatefulWidget {
