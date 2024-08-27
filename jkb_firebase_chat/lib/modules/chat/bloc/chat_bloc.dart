@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,14 +52,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
   }
 
-  Future<FutureOr<void>> _onChatEventSendMessage(
+  FutureOr<void> _onChatEventSendMessage(
     ChatEventSendMessage event,
     Emitter<ChatState> emit,
   ) async {
-    emit(state.copyWith(
-      isLoading: true,
-    ));
-    final messageModel = MessageModel(
+    log(DateTime.now().toString());
+    emit(state.copyWith(isLoading: true));
+    final model = MessageModel(
       id: '',
       text: event.message,
       type: MessageType.text,
@@ -66,12 +66,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       sentBy: sender.id,
     );
     await _service.sendMessage(
-      message: messageModel,
+      message: model,
       chatId: _chatId,
     );
     messageController?.clear();
-    emit(state.copyWith(
-      isLoading: false,
-    ));
+    emit(state.copyWith(isLoading: false));
   }
+
 }

@@ -26,7 +26,7 @@ class MessageListView extends StatelessWidget {
               final message = messages[index];
               log(message.text);
               return MessageListTile(
-                message: message,
+                messageModel: message,
               );
             },
           ),

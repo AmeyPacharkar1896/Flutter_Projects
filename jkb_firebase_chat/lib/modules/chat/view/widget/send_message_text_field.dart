@@ -49,11 +49,13 @@ class _SendMessageTextFieldState extends State<SendMessageTextField> {
             child: SendMessageButton(
               onPressed: () {
                 log(messageController.text);
-                context.read<ChatBloc>().add(
-                      ChatEventSendMessage(
-                        message: messageController.text,
-                      ),
-                    );
+                if (messageController.text.isNotEmpty) {
+                  context.read<ChatBloc>().add(
+                        ChatEventSendMessage(
+                          message: messageController.text,
+                        ),
+                      );
+                }
               },
             ),
           ),

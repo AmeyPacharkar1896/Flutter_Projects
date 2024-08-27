@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jkb_firebase_chat/modules/auth/bloc/auth_bloc.dart';
+import 'modules/auth/bloc/auth_bloc.dart';
 
 class GlobalProvider extends StatelessWidget {
   const GlobalProvider({

@@ -10,7 +10,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(context.read<AuthBloc>().state.currentUser?.name ?? 'Nothing found');
+    log(context.read<AuthBloc>().state.currentUser.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setting'),
