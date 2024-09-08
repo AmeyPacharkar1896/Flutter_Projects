@@ -34,4 +34,12 @@ class UserModel {
       email: user.email,
     );
   }
+
+  factory UserModel.placeholder() {
+    return const UserModel(
+      id: '', 
+      name: 'Unknown User',
+      email: '',
+    );
+  }
 }

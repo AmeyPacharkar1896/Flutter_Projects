@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jkb_firebase_chat/modules/groups/view/my_group/group_page.dart';
 import 'package:jkb_firebase_chat/modules/home/bloc/home_screen_bloc.dart';
 import 'package:jkb_firebase_chat/modules/recent_chats/bloc/recent_chats_bloc.dart';
 import 'package:jkb_firebase_chat/modules/recent_chats/view/recent_chat_list_builder.dart';
@@ -38,7 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) => const SearchPage()),
+                  builder: ((context) => SearchPage(
+                        isGroupMemberSearch: false,
+                        groupId: null,
+                      )),
                 ),
               );
             },
@@ -68,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           context.read<HomeScreenBloc>().add(
                 HomeScreenEvent(changedIndex: value),
               );
-              log(value.toString());
+          log(value.toString());
         },
         destinations: const [
           NavigationDestination(
@@ -80,6 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Status',
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => GroupPage(
+                isCreated: false,
+              ),
+            ),
+          );
+        },
+        label: const Text('Make Group'),
       ),
     );
   }

@@ -72,7 +72,7 @@ class ChatFirestoreService {
         _client.collection(FirestoreCollections.recentChats).doc(user.id);
     await ref.set(chatModel.toMap());
     final reference =
-        ref.collection(FirestoreCollections.userChatsList).doc(chatModel.id);
+        ref.collection(FirestoreCollections.userRecentChatsList).doc(chatModel.id);
     final model = RecentChatModel(chatId: chatModel.id);
     return await reference.set(model.toMap());
   }

@@ -5,31 +5,20 @@ abstract class RecentChatsState {
 }
 
 class RecentChatsStateInitial extends RecentChatsState {
-  const RecentChatsStateInitial({
-    this.chats,
-  });
-
+  const RecentChatsStateInitial({this.chats});
   final List<RecentChatMessageModel>? chats;
 }
 
 class RecentChatsStateLoading extends RecentChatsState {
-  RecentChatsStateLoading({
-    required this.isLoading,
-  });
-
+  const RecentChatsStateLoading({required this.isLoading});
   final bool isLoading;
 }
 
 class RecentChatsStateLoaded extends RecentChatsState {
-  const RecentChatsStateLoaded({
-    required this.chats,
-  });
-
+  const RecentChatsStateLoaded({required this.chats});
   final List<RecentChatMessageModel> chats;
 
-  RecentChatsStateLoaded copyWith({
-    List<RecentChatMessageModel>? chats,
-  }) {
+  RecentChatsStateLoaded copyWith({List<RecentChatMessageModel>? chats}) {
     return RecentChatsStateLoaded(
       chats: chats ?? this.chats,
     );
@@ -37,9 +26,6 @@ class RecentChatsStateLoaded extends RecentChatsState {
 }
 
 class RecentChatsStateError extends RecentChatsState {
-  RecentChatsStateError({
-    required this.error,
-  });
-
+  const RecentChatsStateError({required this.error});
   final String error;
 }

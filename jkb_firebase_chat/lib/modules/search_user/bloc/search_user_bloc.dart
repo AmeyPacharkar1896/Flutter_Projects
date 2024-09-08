@@ -8,7 +8,7 @@ part 'search_user_state.dart';
 part 'search_user_event.dart';
 
 class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
-  SearchUserBloc() : super(SearchUserState(isLoading: false, users: [])) {
+  SearchUserBloc() : super(SearchUserState(isLoading: false, users: [], newGroupMemberDetails: null)) {
     on<SearchUserEventQueryChanged>(_onSearchUserEventQueryChanged);
     on<SearchUserEventSuggestionResult>(_onSearchUserEventSuggestionResult);
   }

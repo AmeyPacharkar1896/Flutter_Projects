@@ -1,10 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jkb_firebase_chat/modules/auth/service/auth_firebase_service.dart';
 import 'package:jkb_firebase_chat/modules/recent_chats/model/recent_chat_message_model.dart';
 import 'package:jkb_firebase_chat/modules/recent_chats/service/firestore_recent_chat_service.dart';
-import 'package:rxdart/rxdart.dart';
 
 part 'recent_chats_state.dart';
 part 'recent_chats_event.dart';
@@ -12,44 +12,47 @@ part 'recent_chats_event.dart';
 class RecentChatsBloc extends Bloc<RecentChatsEvent, RecentChatsState> {
   RecentChatsBloc() : super(const RecentChatsStateInitial()) {
     on<RecentChatsEventInitialize>(_onRecentChatsEventInitialize);
+    on<RecentChatsEventCreateGroupRecentChat>(_onRecentChatsEventCreateGroupRecentChat);
   }
 
-  final _firestoreRecentChatService = FirestoreRecentChatService();
+  final FirestoreRecentChatService _firestoreRecentChatService = FirestoreRecentChatService();
 
-  _onRecentChatsEventInitialize(
+  Future<void> _onRecentChatsEventInitialize(
     RecentChatsEventInitialize event,
     Emitter<RecentChatsState> emit,
   ) async {
     emit(RecentChatsStateLoading(isLoading: true));
     final userId = AuthFirebaseService().currentUser?.id;
+
     if (userId != null) {
-      final streamListOfRecentChats =
-          _firestoreRecentChatService.getRecentChatsForUser(userId);
-      final streamRecentChatMessageModels = streamListOfRecentChats.switchMap(
-        (listRecentChatModel) {
-          return Rx.combineLatest(
-              listRecentChatModel.map(
-                (recentChatModel) => _firestoreRecentChatService
-                    .getRecentChatMessageStream(recentChatModel)
-                    .map(
-                      (recentChatMessageModel) => RecentChatMessageModel(
-                          user: recentChatMessageModel.user,
-                          message: recentChatMessageModel.message),
-                    ),
-              ),
-              (List<RecentChatMessageModel> combineList) => combineList);
+      final recentChatsStream = _firestoreRecentChatService.fetchRecentChatsForUser(userId);
+
+      final transformedStream = recentChatsStream.asyncMap((recentChats) async {
+        final chatMessageModels = await Future.wait(recentChats.map((chat) async {
+          return await _firestoreRecentChatService.fetchRecentChatMessage(chat.chatId, userId);
+        }));
+
+        // Filter out any null or invalid results
+        return chatMessageModels.whereType<RecentChatMessageModel>().toList();
+      });
+
+      await emit.forEach<List<RecentChatMessageModel>>(
+        transformedStream,
+        onData: (chats) => RecentChatsStateLoaded(chats: chats),
+        onError: (error, stackTrace) {
+          log('Error loading recent chats: $error');
+          return const RecentChatsStateError(error: 'Failed to load recent chats');
         },
       );
-      await emit.forEach(
-        streamRecentChatMessageModels,
-        onData: (chats) => RecentChatsStateLoaded(chats: chats),
-        onError: ((error, stackTrace) {
-          log('Error fetching recent chats: $error');
-          return RecentChatsStateError(error: error.toString());
-        }),
-      );
     } else {
-      emit(RecentChatsStateError(error: 'User is not authenticated'));
+      emit(const RecentChatsStateError(error: 'User is not authenticated'));
     }
+  }
+
+  Future<void> _onRecentChatsEventCreateGroupRecentChat(
+    RecentChatsEventCreateGroupRecentChat event,
+    Emitter<RecentChatsState> emit,
+  ) async {
+    // Implement the logic for creating a group recent chat
   }
 }

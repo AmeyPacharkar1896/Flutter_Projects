@@ -9,13 +9,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (_) => HomeScreenBloc(),
-      ),
-      BlocProvider(
-        create: (_) => RecentChatsBloc(),
-      ),
-    ], child: const HomeScreen());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => HomeScreenBloc(),
+        ),
+        BlocProvider(
+          create: (_) => RecentChatsBloc(),
+        ),
+      ],
+      child: const HomeScreen(),
+    );
   }
 }
